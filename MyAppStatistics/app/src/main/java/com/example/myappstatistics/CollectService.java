@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CollectService extends Service {
     public static final String TAG = "TestService";
-    public static final long INTERVAL = 2*1000;
+    public static final long INTERVAL = 1000;
     private MyThread myThread = null;
     private static class MyThread extends Thread {
         private Context context;
@@ -34,25 +34,26 @@ public class CollectService extends Service {
         @Override
         public void run() {
             long dur = INTERVAL;
-            long startTime;
+            long startTime = System.currentTimeMillis();
             while (isRun) {
                 try {
-                    prevAppName = currAppName;
-                    TimeUnit.MILLISECONDS.sleep(INTERVAL);
                     currAppName = getTopApp(context);
                     if (prevAppName != null){
                         if (prevAppName.equals(currAppName)){
                             dur += INTERVAL;
                         }else {
                             AppUsage appUsage = new AppUsage();
-                            appUsage.setAppName(currAppName);
-                            appUsage.setStartTime(System.currentTimeMillis());
+                            appUsage.setAppName(prevAppName);
+                            appUsage.setStartTime(startTime);
                             appUsage.setDuration(dur);
                             appUsage.save();
-                            Log.i(TAG, "Save: "+ String.valueOf(appUsage.getStartTime()));
+                            Log.i(TAG, "Save: "+ appUsage.getStartTime());
                             dur = INTERVAL;
+                            startTime = System.currentTimeMillis();
                         }
                     }
+                    prevAppName = currAppName;
+                    TimeUnit.MILLISECONDS.sleep(INTERVAL);
 
 
                 } catch (InterruptedException e) {
@@ -66,7 +67,7 @@ public class CollectService extends Service {
                 if (m != null) {
                     long now = System.currentTimeMillis();
                     //获取60秒之内的应用数据
-                    List<UsageStats> stats =  m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 8 * 60 * 60 * 1000, now);
+                    List<UsageStats> stats =  m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now -  60 * 1000, now);
                     Log.i(TAG, "Running app number in last 2 seconds : " + stats.size());
 
 
@@ -74,7 +75,8 @@ public class CollectService extends Service {
                     if (!stats.isEmpty()) {
                         int j = 0;
                         for (int i = 0; i < stats.size(); i++) {
-                            if (stats.get(i).getLastTimeUsed() > stats.get(j).getLastTimeUsed()) {
+                            if (stats.get(i).getLastTimeUsed() > stats.get(j).getLastTimeUsed()
+                                    && !stats.get(i).getPackageName().equals("com.huawei.android.launcher")) {
                                 j = i;
                             }
                         }

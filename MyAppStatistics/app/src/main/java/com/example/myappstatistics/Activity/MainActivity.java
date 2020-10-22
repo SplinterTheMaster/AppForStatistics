@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.myappstatistics.CollectService;
+import com.example.myappstatistics.Model.AppUsage;
 import com.example.myappstatistics.R;
+
+import org.litepal.LitePal;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stopButton.setOnClickListener(this);
         Button applyButton = (Button)findViewById(R.id.apply_permission_button);
         applyButton.setOnClickListener(this);
+        Button deleteButton = (Button)findViewById(R.id.delete_all_button);
+        deleteButton.setOnClickListener(this);
 
     }
     public void onClick(View v){
@@ -45,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.apply_permission_button :
                 Intent applyIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                 startActivity(applyIntent);
+                break;
+            case R.id.delete_all_button :
+                LitePal.deleteAll(AppUsage.class ,"duration > 0");
+                Toast.makeText(MainActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                 break;
             default :
                 break;
