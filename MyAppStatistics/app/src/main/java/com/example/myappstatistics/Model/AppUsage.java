@@ -6,7 +6,7 @@ public class AppUsage extends LitePalSupport {
 
     private String appName;
     private long startTime;
-    private int duration;
+    private long duration;
 
     public String getAppName() {
         return appName;
@@ -24,11 +24,11 @@ public class AppUsage extends LitePalSupport {
         this.startTime = startTime;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
