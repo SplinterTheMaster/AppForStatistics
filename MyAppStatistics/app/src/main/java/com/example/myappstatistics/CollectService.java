@@ -30,27 +30,33 @@ public class CollectService extends Service {
         public void run() {
             while (isRun) {
                 try {
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.MILLISECONDS.sleep(1000);
                     getTopApp(context);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
+        private void updateDB(){
 
+        }
+        private void goOnCollect(){
+
+        }
+        private void judge(){
+
+        }
         private void getTopApp(Context context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 UsageStatsManager m = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
                 if (m != null) {
                     long now = System.currentTimeMillis();
                     //获取60秒之内的应用数据
-                    List<UsageStats> stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 60 * 1000, now);
-                    Log.i(TAG, "Running app number in last 60 seconds : " + stats.size());
+                    List<UsageStats> stats =  m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 8 * 60 * 60 * 1000, now);
+                    Log.i(TAG, "Running app number in last 2 seconds : " + stats.size());
 
                     String topActivity = "";
-
                     //取得最近运行的一个app，即当前运行的app
-                    if ((stats != null) && (!stats.isEmpty())) {
+                    if (!stats.isEmpty()) {
                         int j = 0;
                         for (int i = 0; i < stats.size(); i++) {
                             if (stats.get(i).getLastTimeUsed() > stats.get(j).getLastTimeUsed()) {
@@ -62,7 +68,6 @@ public class CollectService extends Service {
                     Log.i(TAG, "top running app is : "+topActivity);
                 }
             }
-        }
     }
 
     //@Nullable
