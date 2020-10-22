@@ -34,6 +34,7 @@ public class CollectService extends Service {
         @Override
         public void run() {
             long dur = INTERVAL;
+            long startTime;
             while (isRun) {
                 try {
                     prevAppName = currAppName;
@@ -48,6 +49,7 @@ public class CollectService extends Service {
                             appUsage.setStartTime(System.currentTimeMillis());
                             appUsage.setDuration(dur);
                             appUsage.save();
+                            Log.i(TAG, "Save: "+ String.valueOf(appUsage.getStartTime()));
                             dur = INTERVAL;
                         }
                     }
