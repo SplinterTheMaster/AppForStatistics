@@ -15,6 +15,10 @@ import com.example.myappstatistics.R;
 
 import org.litepal.LitePal;
 
+import java.util.List;
+
+// launch Activity
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -37,15 +41,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.show_results_button :
+                List<AppUsage> data = LitePal.findAll(AppUsage.class);
+                if (data.isEmpty()){
+                    Toast.makeText(MainActivity.this, "数据库为空", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 Intent showIntent = new Intent(MainActivity.this, ShowActivity.class);
                 startActivity(showIntent);
                 break;
             case R.id.start_service_button :
-                Intent startInten = new Intent(MainActivity.this, CollectService.class);
-                startService(startInten);
+                Intent startIntent = new Intent(MainActivity.this, CollectService.class);
+                startService(startIntent);
+                Toast.makeText(MainActivity.this, "已开启服务", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.stop_service_button :
                 Intent stopIntent = new Intent(MainActivity.this, CollectService.class);
+                Toast.makeText(MainActivity.this, "已关闭服务", Toast.LENGTH_SHORT).show();
                 stopService(stopIntent);
                 break;
             case R.id.apply_permission_button :
@@ -53,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(applyIntent);
                 break;
             case R.id.delete_all_button :
-                LitePal.deleteAll(AppUsage.class ,"duration > 0");
-                Toast.makeText(MainActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                LitePal.deleteAll(AppUsage.class ,"duration >= 0");
+                Toast.makeText(MainActivity.this, "已清空数据库", Toast.LENGTH_SHORT).show();
                 break;
             default :
                 break;

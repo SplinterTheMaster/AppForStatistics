@@ -11,11 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myappstatistics.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+//Adapter of recyclerView in Fragment
 
 public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ViewHolder> {
     private List<AppItem> mAppItemList;
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView appName;
         ImageView appIcon;
@@ -43,8 +48,9 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ViewHold
         AppItem appItem = mAppItemList.get(position);
         viewHolder.appName.setText(appItem.getAppName());
         viewHolder.appIcon.setImageDrawable(appItem.getAppIcon());
-        viewHolder.startTime.setText(appItem.getStartTime());
-        viewHolder.duration.setText(appItem.getDuration());
+        long st = appItem.getStartTime();
+        viewHolder.startTime.setText(dateFormat.format(new Date(st)));
+        viewHolder.duration.setText(appItem.getDuration()+"毫秒");
     }
     public int getItemCount(){
         return mAppItemList.size();

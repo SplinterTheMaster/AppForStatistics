@@ -20,6 +20,7 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
+//include four Fragment for exhibit
 
 public class ShowActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "DBTes";
@@ -27,6 +28,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+        replaceFragment(new ListFragment());
         TextView usageTV = (TextView)findViewById(R.id.usage_text_view);
         usageTV.setOnClickListener(this);
         TextView columnTV = (TextView)findViewById(R.id.column_text_view);

@@ -2,6 +2,8 @@ package com.example.myappstatistics.Model;
 
 import org.litepal.crud.LitePalSupport;
 
+//table (appName, startTime, duration) in LitePal
+
 public class AppUsage extends LitePalSupport {
 
     private String appName;

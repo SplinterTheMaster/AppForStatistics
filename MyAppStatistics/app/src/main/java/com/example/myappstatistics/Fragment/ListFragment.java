@@ -29,6 +29,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+// show the data from LitePal in a recyclerView
+
 public class ListFragment extends Fragment {
     public static final String TAG = "ListFragment";
     private View thisView;
@@ -64,7 +67,7 @@ public class ListFragment extends Fragment {
                 Log.e(TAG, "appNameNotFound: " + allData.get(i).getAppName());
             }
             AppItem appItem = new AppItem(allData.get(i).getAppName(), appPic,
-                    String.valueOf(allData.get(i).getStartTime()), String.valueOf(allData.get(i).getDuration()) );
+                    allData.get(i).getStartTime(), allData.get(i).getDuration());
             appItemList.add(appItem);
         }
     }

@@ -15,6 +15,8 @@ import com.example.myappstatistics.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+// show the data from LitePal
 public class PieChartFragment extends Fragment {
 
 
