@@ -20,7 +20,7 @@ import java.util.List;
 
 public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ViewHolder> {
     private List<AppItem> mAppItemList;
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView appName;
         ImageView appIcon;
@@ -50,7 +50,7 @@ public class AppItemAdapter extends RecyclerView.Adapter<AppItemAdapter.ViewHold
         viewHolder.appIcon.setImageDrawable(appItem.getAppIcon());
         long st = appItem.getStartTime();
         viewHolder.startTime.setText(dateFormat.format(new Date(st)));
-        viewHolder.duration.setText(appItem.getDuration()+"毫秒");
+        viewHolder.duration.setText(appItem.getDuration()/1000+"秒");
     }
     public int getItemCount(){
         return mAppItemList.size();

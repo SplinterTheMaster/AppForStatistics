@@ -23,51 +23,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-
-// show the official usage of usagestats
-
-public class AppUsageFragment extends Fragment {
-
-    private static final String TAG = "AppUsageFragment";
-    private static final String DESKTOP = "com.huawei.android.launcher";
-    private static final String SYSTEM = "com.android";
-    private View thisView;
-    private String testApp = "com.tencent.mm";
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
-        thisView = view;
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, -3);
-        long startTime = cal.getTimeInMillis();
-        long endTime = System.currentTimeMillis();
-        printEventList(thisView.getContext(), startTime,endTime);
-        return view;
-    }
-    private void printEventList(Context context, long beginTime, long endTime){
-        UsageEvents.Event currentEvent;
-        UsageStatsManager usageStatsManager = (UsageStatsManager)context.getSystemService(Context.USAGE_STATS_SERVICE);
-        UsageEvents usageEvents = usageStatsManager.queryEvents(beginTime, endTime);
-        while (usageEvents.hasNextEvent()){
-            currentEvent = new UsageEvents.Event();
-            usageEvents.getNextEvent(currentEvent);
-            String currName = currentEvent.getPackageName();
-            if (currName.equals(DESKTOP))
-                continue;
-            if (currName.length()> 10 && currName.substring(0,11).equals(SYSTEM))
-                continue;
-            if (currentEvent.getEventType() == UsageEvents.Event.ACTIVITY_RESUMED )
-                Log.i(TAG, currentEvent.getPackageName() + "\t"+ "Resumed" + dateFormat.format(new Date(currentEvent.getTimeStamp())));
-            if (currentEvent.getEventType() == UsageEvents.Event.ACTIVITY_PAUSED)
-                Log.i(TAG, currentEvent.getPackageName() + "\t" + "Paused" +dateFormat.format(new Date(currentEvent.getTimeStamp())));
-        }
-    }
-
-}
-/*
-*  printUsageList(thisView.getContext(), startTime, endTime);
+/*printUsageList(thisView.getContext(), startTime, endTime);
         HashMap here = getTimeSpent(thisView.getContext(),testApp,
                 cal.getTimeInMillis(),System.currentTimeMillis() );
         for (Long i : getStart(thisView.getContext(),testApp,startTime,endTime)){
@@ -78,8 +34,8 @@ public class AppUsageFragment extends Fragment {
         for (Object i : res.entrySet()){
             Log.i(TAG, i.toString());
         }
-* */
-/*HashMap<String, Integer> getTimeSpent(Context context, String packageName, long beginTime, long endTime) {
+
+HashMap<String, Integer> getTimeSpent(Context context, String packageName, long beginTime, long endTime) {
         UsageEvents.Event currentEvent;
         List<UsageEvents.Event> allEvents = new ArrayList<>();
         HashMap<String, Integer> appUsageMap = new HashMap<>();
@@ -156,8 +112,8 @@ public class AppUsageFragment extends Fragment {
                         dateFormat.format(new Date(currentEvent.getTimeStamp())));
             }
         }
-        //results.put(new String("test") , "00");
-        //results.put(new String("test") , "01");
+        results.put(new String("test") , "00");
+        results.put(new String("test") , "01");
         return results;
     }
 
@@ -185,3 +141,63 @@ public class AppUsageFragment extends Fragment {
                 Log.i(TAG, usageStats.getPackageName() + "\t" + ntime +"\t"+ time );
         }
     }*/
+/*
+    private static final String TAG = "AppUsageFragment";
+    private static final String DESKTOP = "com.huawei.android.launcher";
+    private static final String SYSTEM = "com.android";
+    private View thisView;
+    private String testApp = "com.tencent.mm";
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        thisView = view;
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MINUTE, -3);
+        long startTime = cal.getTimeInMillis();
+        long endTime = System.currentTimeMillis();
+        printEventList(thisView.getContext(), startTime,endTime);
+        return view;
+    }
+    private void printEventList(Context context, long beginTime, long endTime){
+        UsageEvents.Event currentEvent;
+        UsageStatsManager usageStatsManager = (UsageStatsManager)context.getSystemService(Context.USAGE_STATS_SERVICE);
+        UsageEvents usageEvents = usageStatsManager.queryEvents(beginTime, endTime);
+        while (usageEvents.hasNextEvent()){
+            currentEvent = new UsageEvents.Event();
+            usageEvents.getNextEvent(currentEvent);
+            String currName = currentEvent.getPackageName();
+            if (currName.equals(DESKTOP))
+                continue;
+            if (currName.length()> 10 && currName.substring(0,11).equals(SYSTEM))
+                continue;
+            if (currentEvent.getEventType() == UsageEvents.Event.ACTIVITY_RESUMED )
+                Log.i(TAG, currentEvent.getPackageName() + "\t"+ "Resumed" + dateFormat.format(new Date(currentEvent.getTimeStamp())));
+            if (currentEvent.getEventType() == UsageEvents.Event.ACTIVITY_PAUSED)
+                Log.i(TAG, currentEvent.getPackageName() + "\t" + "Paused" +dateFormat.format(new Date(currentEvent.getTimeStamp())));
+        }
+    }
+*/
+
+// show the official usage of usagestats
+
+public class AppUsageFragment extends Fragment {
+
+    private static final String TAG = "AppUsageFragment";
+    private static final String DESKTOP = "com.huawei.android.launcher";
+    private static final String SYSTEM = "com.android";
+    private View thisView;
+    private String testApp = "com.tencent.mm";
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        thisView = view;
+
+        return view;
+    }
+
+
+}

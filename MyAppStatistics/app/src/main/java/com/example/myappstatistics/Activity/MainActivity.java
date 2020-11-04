@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(applyIntent);
                 break;
             case R.id.delete_all_button :
-                LitePal.deleteAll(AppUsage.class ,"duration >= 0");
+                LitePal.deleteAll(AppUsage.class );
                 Toast.makeText(MainActivity.this, "已清空数据库", Toast.LENGTH_SHORT).show();
                 break;
             default :

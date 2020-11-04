@@ -17,6 +17,7 @@
             android:name=".CollectService"
             android:enabled="true"
             android:exported="true" />
+        <receiver android:name=".AlarmReceiver"/>
 
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
